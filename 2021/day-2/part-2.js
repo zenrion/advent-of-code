@@ -5,9 +5,9 @@ const data = fs.readFileSync('input.txt', 'utf8')
 
 console.log(data);
 
-let coordinates = {
-  x: 0,
-  y: 0,
+let position = {
+  horizontal: 0,
+  depth: 0,
   aim: 0
 };
 
@@ -18,17 +18,17 @@ for (const dirAndValue of data) {
 
   switch (direction) {
     case 'forward':
-      coordinates.x += units;
-      coordinates.y += (coordinates.aim * units);
+      position.horizontal += units;
+      position.depth += (position.aim * units);
       break;
     case 'up':
-      coordinates.aim -= units;
+      position.aim -= units;
       break;
     case 'down':
-      coordinates.aim += units;
+      position.aim += units;
       break;
   }
 }
 
-console.log(coordinates);
-console.log(coordinates.x * coordinates.y);
+console.log(position);
+console.log(position.horizontal * position.depth);
