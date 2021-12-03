@@ -1,9 +1,7 @@
 const fs = require('fs');
 
-const data = fs.readFileSync('input.txt', 'utf8')
+const data = fs.readFileSync('input.txt', 'utf-8')
   .split('\r\n');
-
-console.log(data);
 
 let position = { 
   horizontal: 0,
@@ -28,5 +26,4 @@ for (const dirAndValue of data) {
   }
 }
 
-console.log(position);
 console.log(position.horizontal * position.depth);
