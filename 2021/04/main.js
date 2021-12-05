@@ -42,12 +42,12 @@ const getLastBoardToWin = (numbers, bingoBoards) => {
   for (let i = 0; i < numbers.length; ++i) {
     let drawnNumber = numbers[i];
 
-    for (key in bingoBoards) {
-      if (!boardIndexWinningNumberMap.has(key)) {
-        markBoardIfExists(drawnNumber, bingoBoards[key]);
+    for (let i = 0; i < bingoBoards.length; ++i) {
+      if (!boardIndexWinningNumberMap.has(i)) {
+        markBoardIfExists(drawnNumber, bingoBoards[i]);
 
-        if (isWinner(bingoBoards[key])) {
-          boardIndexWinningNumberMap.set(key, drawnNumber);
+        if (isWinner(bingoBoards[i])) {
+          boardIndexWinningNumberMap.set(i, drawnNumber);
         }
       }
     }
