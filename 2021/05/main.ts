@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import { Line } from './Line';
 
-const calculateLineOverlap = (lines: (Line | undefined)[]): number => {
+const calculateLineOverlap = (lines: Line[]): number => {
   let existingLinePointOccurences = buildLinePointOccurenceMap(lines);
 
   let total = 0;
@@ -15,26 +15,20 @@ const calculateLineOverlap = (lines: (Line | undefined)[]): number => {
   return total;
 };
 
-const buildLinePointOccurenceMap = (
-  lines: (Line | undefined)[]
-): Map<string, number> => {
+const buildLinePointOccurenceMap = (lines: Line[]): Map<string, number> => {
   let existingLinePointOccurences = new Map<string, number>();
 
-  if (lines) {
-    for (const line of lines) {
-      if (line) {
-        const lineRange = line.getLineRange();
+  for (const line of lines) {
+    const lineRange = line.getLineRange();
 
-        for (const point of lineRange) {
-          if (existingLinePointOccurences.has(point)) {
-            const occurence = existingLinePointOccurences.get(point);
-            if (occurence !== undefined) {
-              existingLinePointOccurences.set(point, occurence + 1);
-            }
-          } else {
-            existingLinePointOccurences.set(point, 1);
-          }
+    for (const point of lineRange) {
+      if (existingLinePointOccurences.has(point)) {
+        const occurence = existingLinePointOccurences.get(point);
+        if (occurence !== undefined) {
+          existingLinePointOccurences.set(point, occurence + 1);
         }
+      } else {
+        existingLinePointOccurences.set(point, 1);
       }
     }
   }
@@ -55,13 +49,12 @@ const lines = fs
         parseInt(regexArray[4])
       );
     }
-  });
+  })
+  .filter((line: Line | undefined): line is Line => Line !== undefined);
 
-const horizontalVerticalLines = lines.filter((line) => {
-  if (line) {
-    return line.startX === line.endX || line.startY === line.endY;
-  }
-});
+const horizontalVerticalLines = lines.filter(
+  (line) => line.startX === line.endX || line.startY === line.endY
+);
 
 console.log(`Part one: ${calculateLineOverlap(horizontalVerticalLines)}`);
 console.log(`Part two: ${calculateLineOverlap(lines)}`);

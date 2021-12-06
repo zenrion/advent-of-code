@@ -4,7 +4,7 @@ export class Line {
   private _endX: number;
   private _endY: number;
 
-  constructor(x1: number, y1: number, x2: number, y2: number) {
+  constructor(x1 = 0, y1 = 0, x2 = 0, y2 = 0) {
     this._startX = x1;
     this._startY = y1;
     this._endX = x2;
@@ -59,13 +59,14 @@ export class Line {
   }
 
   private getHorizontalVerticalLineRanges(): string[] {
+    let lineRanges: string[] = [];
+
     const xStart = Math.min(this._startX, this.endX);
     const xEnd = Math.max(this.startX, this.endX);
 
     const yStart = Math.min(this.startY, this.endY);
     const yEnd = Math.max(this.startY, this.endY);
 
-    let lineRanges: string[] = [];
     for (let i = xStart; i <= xEnd; ++i) {
       for (let j = yStart; j <= yEnd; ++j) {
         lineRanges.push(`${i},${j}`);
@@ -80,6 +81,7 @@ export class Line {
 
     let x = this.startX;
     let y = this.startY;
+
     let dX = this.startX < this.endX ? 1 : -1;
     let dY = this.startY < this.endY ? 1 : -1;
 
